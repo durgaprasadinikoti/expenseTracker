@@ -13,12 +13,12 @@ const styles = StyleSheet.create({
      width: '95%',
      borderWidth: 1,
      borderRadius: 8,
-     borderColor: '#480051',
+     borderColor: '#120015',
      margin: 12,
      elevation: 3,
      shadowColor: 'black',
      shadowOpacity: 0.5,
-     backgroundColor: '#480051',
+     backgroundColor: '#120015',
      shadowOffset: {
         width: 0, 
         height: 1

@@ -2,15 +2,15 @@ import { SafeAreaView , StyleSheet, Text } from 'react-native';
 import Card from '../ui/Card';
 import { FontAwesome } from '@expo/vector-icons';
 
-const TotalCard = () => {
+const TotalCard = ({title, price}) => {
     return (
         <Card>
             <SafeAreaView style={styles.container}>
                  <SafeAreaView style={styles.totalTextContainer}>
-                        <Text style={styles.text}>Total</Text>
+                        <Text style={styles.text}>{title}</Text>
                  </SafeAreaView>
                  <SafeAreaView style={styles.priceTextContainer}>
-                     <Text style={styles.text}> <FontAwesome name="rupee" size={24} color="white" /> 4000</Text>
+                     <Text style={styles.priceText}> <FontAwesome name="rupee" size={18} color="white" /> {price}</Text>
                  </SafeAreaView>
             </SafeAreaView>
         </Card>
@@ -23,10 +23,15 @@ const styles = StyleSheet.create({
     },
     text: {
         margin: 5,
+        padding: 10,
+        color: 'white',
+    },
+    priceText: {
+        margin: 5,
         padding: 5,
         fontWeight: 500,
         color: 'white',
-        fontSize: 20
+        fontSize: 18
     },
     totalTextContainer: {
         width: '50%',
