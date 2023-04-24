@@ -3,7 +3,6 @@ import Card from '../ui/Card';
 import { FontAwesome } from '@expo/vector-icons'; 
 
 const DetailExpenseCard = ({item}) => {
-    console.log(item);
     return(
         <Card style={{backgroundColor: '#4F4F4F', borderColor: '#4F4F4F'}}>
             <SafeAreaView style={styles.container}>

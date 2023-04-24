@@ -1,6 +1,7 @@
-import { SafeAreaView, StyleSheet, FlatList } from "react-native";
+import { FlatList } from "react-native";
 import TotalExpernsesCard from "../components/expenses/TotalExpensesCard";
 import DetailExpenseCard from "../components/expenses/DetailExpenseCard";
+import Layout from "./Layout";
 
 const DATA = [
   {
@@ -32,22 +33,15 @@ const DATA = [
 const RecentExpenses = () => {
   const TotalPrice = DATA.reduce( (acc, item) => acc + item.price, 0 )
   return (
-    <SafeAreaView style={styles.rootContainer}>
+    <Layout>
       <TotalExpernsesCard title={"Last 7 Days"} price={TotalPrice} />
       <FlatList
         data={DATA}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => <DetailExpenseCard item={item} />}
       />
-    </SafeAreaView>
+    </Layout>
   );
 };
-
-const styles = StyleSheet.create({
-  rootContainer: {
-    flex: 1,
-    backgroundColor: "#CED9DA",
-  },
-});
 
 export default RecentExpenses;
