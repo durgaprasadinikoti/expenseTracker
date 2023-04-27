@@ -3,16 +3,18 @@ import { useState } from 'react';
 
 const ExpenseProvider = ({children}) => {
     const [isAddExpenseModalVisible, setIsAddExpenseModalShow] = useState(false);
+    const [expenses, setExpensesInst] = useState([]);
 
     const setIsAddExpenseModalVisible = (flag) => {
-        console.log("I am here...");
-        console.log(flag);
         setIsAddExpenseModalShow(flag);
     }
 
+    const setExpenses = expense => setExpensesInst( (previousExpenses) => [...previousExpenses, expense]  )
     const value = {
         isAddExpenseModalVisible, 
-        setIsAddExpenseModalVisible
+        setIsAddExpenseModalVisible,
+        expenses,
+        setExpenses
     }
 
     return(
