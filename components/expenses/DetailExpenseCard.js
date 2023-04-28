@@ -1,8 +1,11 @@
 import { SafeAreaView, Text, StyleSheet } from 'react-native';
 import Card from '../ui/Card';
-import { FontAwesome } from '@expo/vector-icons'; 
+import { FontAwesome, MaterialIcons } from '@expo/vector-icons'; 
+import { useContext } from 'react';
+import ExpenseContext from '../../store/expense-context';
 
 const DetailExpenseCard = ({item}) => {
+    const { deleteExpense } = useContext(ExpenseContext);
     return(
         <Card style={{backgroundColor: '#4F4F4F', borderColor: '#4F4F4F'}}>
             <SafeAreaView style={styles.container}>
@@ -14,6 +17,10 @@ const DetailExpenseCard = ({item}) => {
                      <SafeAreaView  style={styles.expense}>
                          <Text style={styles.text}>{item.price}</Text>
                      </SafeAreaView>
+                </SafeAreaView>
+                <SafeAreaView style={styles.rightEndContainer}>
+                     <MaterialIcons name="edit" size={24} color="#29BB0C" />
+                     <MaterialIcons name="delete" size={24} color="#FF0000" onPress={deleteExpense.bind(this, item.id)} />
                 </SafeAreaView>
             </SafeAreaView>
         </Card>
@@ -48,7 +55,7 @@ const styles = StyleSheet.create({
         padding: 10
     },
     leftContainer: {
-       width: '70%',
+       width: '50%',
        justifyContent: 'flex-start',
        alignItems: 'flex-start',
     },
@@ -60,6 +67,12 @@ const styles = StyleSheet.create({
         width: '30%',
         justifyContent: 'flex-end',
         alignItems: 'flex-end'
+    },
+    rightEndContainer: {
+        width: '20%',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center'
     }
 
 });
