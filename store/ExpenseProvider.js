@@ -9,7 +9,7 @@ const ExpenseProvider = ({children}) => {
         setIsAddExpenseModalShow(flag);
     }
 
-    const setExpenses = expense => setExpensesInst( (previousExpenses) => [...previousExpenses, expense]  )
+    const setExpenses = expense => setExpensesInst( (previousExpenses) => [...previousExpenses, ...expense]  )
     const deleteExpense = id => setExpensesInst( (previousExpenses) => previousExpenses.filter( expense => expense.id !== id ) );
     const value = {
         isAddExpenseModalVisible, 

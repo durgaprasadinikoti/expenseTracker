@@ -4,9 +4,11 @@ import DetailExpenseCard from "./DetailExpenseCard";
 import { useContext } from "react";
 import ExpenseContext from "../../store/expense-context";
 import { Octicons } from '@expo/vector-icons'; 
+import { useEffect } from 'react';
 
 const ExpenseList = ({ title }) => {
   const { expenses } = useContext(ExpenseContext);
+
   const TotalPrice = expenses.reduce(
     (acc, item) => acc + Number(item.price),
     0

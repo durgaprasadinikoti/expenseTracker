@@ -3,6 +3,11 @@ import Card from '../ui/Card';
 import { FontAwesome } from '@expo/vector-icons';
 
 const TotalCard = ({title, price}) => {
+    const formatter = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'INR',
+        minimumFractionDigits: 2,
+      });
     return (
         <Card>
             <SafeAreaView style={styles.container}>
@@ -10,7 +15,7 @@ const TotalCard = ({title, price}) => {
                         <Text style={styles.text}>{title}</Text>
                  </SafeAreaView>
                  <SafeAreaView style={styles.priceTextContainer}>
-                     <Text style={styles.priceText}> <FontAwesome name="rupee" size={18} color="white" /> {price}</Text>
+                     <Text style={styles.priceText}> {formatter.format(price)}</Text>
                  </SafeAreaView>
             </SafeAreaView>
         </Card>

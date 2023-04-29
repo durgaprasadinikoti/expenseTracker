@@ -6,22 +6,27 @@ import ExpenseContext from '../../store/expense-context';
 
 const DetailExpenseCard = ({item}) => {
     const { deleteExpense } = useContext(ExpenseContext);
+    const formatter = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'INR',
+        minimumFractionDigits: 2,
+      });
     return(
         <Card style={{backgroundColor: '#4F4F4F', borderColor: '#4F4F4F'}}>
             <SafeAreaView style={styles.container}>
                 <SafeAreaView style={styles.leftContainer}>
                     <Text style={[styles.leftContainerText, {fontWeight: 'bold'}]}>{item.title}</Text>
-                    <Text style={styles.leftContainerText}><FontAwesome name="calendar" size={20} color="white" /> {item.date}</Text>
+                    <Text style={styles.leftContainerText}> <FontAwesome name="calendar" size={20} color="white" /> {item.date}</Text>
                 </SafeAreaView>
                 <SafeAreaView style={styles.rightContainer}>
                      <SafeAreaView  style={styles.expense}>
-                         <Text style={styles.text}>{item.price}</Text>
+                         <Text style={styles.text}>{formatter.format(item.price)}</Text>
                      </SafeAreaView>
                 </SafeAreaView>
-                <SafeAreaView style={styles.rightEndContainer}>
+                {/* <SafeAreaView style={styles.rightEndContainer}>
                      <MaterialIcons name="edit" size={24} color="#29BB0C" />
                      <MaterialIcons name="delete" size={24} color="#FF0000" onPress={deleteExpense.bind(this, item.id)} />
-                </SafeAreaView>
+                </SafeAreaView> */}
             </SafeAreaView>
         </Card>
     )
@@ -55,7 +60,7 @@ const styles = StyleSheet.create({
         padding: 10
     },
     leftContainer: {
-       width: '50%',
+       width: '60%',
        justifyContent: 'flex-start',
        alignItems: 'flex-start',
     },
@@ -64,7 +69,7 @@ const styles = StyleSheet.create({
         padding: 5
     },
     rightContainer: {
-        width: '30%',
+        width: '40%',
         justifyContent: 'flex-end',
         alignItems: 'flex-end'
     },

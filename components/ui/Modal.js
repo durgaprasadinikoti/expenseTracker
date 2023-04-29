@@ -13,6 +13,9 @@ import Button from "./Button";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { Fontisto } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import { database } from '../../firebaseConfig';
+import { ref, set } from "firebase/database";
+
 
 const initialState = {
   title: "",
@@ -113,7 +116,9 @@ const ExtendedModal = () => {
       setDate(new Date());
       dispatch({ type: "CLEAR_FORM" });
       setIsAddExpenseModalVisible(false);
-      setExpenses({...state, id: Date.now().toString(36)})
+      const id = Date.now().toString(36);
+      setExpenses([{...state, id}])
+      set(ref(database, 'expenses/' + id), {...state, id});
     } else {
       dispatch({ type: "SET_ERROS", errors });
     }
