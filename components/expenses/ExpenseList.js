@@ -1,15 +1,11 @@
 import { FlatList, StyleSheet, Text, SafeAreaView } from "react-native";
 import TotalExpernsesCard from "./TotalExpensesCard";
 import DetailExpenseCard from "./DetailExpenseCard";
-import { useContext } from "react";
-import ExpenseContext from "../../store/expense-context";
 import { Octicons } from '@expo/vector-icons'; 
-import { useEffect } from 'react';
 
-const ExpenseList = ({ title }) => {
-  const { expenses } = useContext(ExpenseContext);
-
-  const TotalPrice = expenses.reduce(
+const ExpenseList = ({ title, data }) => {
+  console.log(data);
+  const TotalPrice = data.reduce(
     (acc, item) => acc + Number(item.price),
     0
   );
@@ -24,7 +20,7 @@ const ExpenseList = ({ title }) => {
         </SafeAreaView>
       )}
       <FlatList
-        data={expenses}
+        data={data}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => <DetailExpenseCard item={item} />}
       />
