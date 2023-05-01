@@ -16,7 +16,7 @@ const RecentExpenses = () => {
   } )
   return (
     <Layout>
-        <ExpenseList title="Last 7 Days" data={filteredData} />
+        <ExpenseList title="Today" data={filteredData} />
     </Layout>
   );
 };
