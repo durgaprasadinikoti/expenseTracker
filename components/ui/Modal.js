@@ -12,9 +12,9 @@ import ExpenseContext from "../../store/expense-context";
 import Button from "./Button";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { Fontisto } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
 import { database } from '../../firebaseConfig';
-import { ref, set } from "firebase/database";
+import { ref, set, update } from "firebase/database";
+import moment from "moment";
 
 
 const initialState = {
@@ -27,6 +27,11 @@ const initialState = {
 
 const reducerFn = (state, action) => {
   switch (action.type) {
+    case "SET_ALL_VALUES":
+      return {
+        ...state,
+        ...action.payload,
+      };
     case "SET_FIELD_VALUE":
       return {
         ...state,
@@ -46,7 +51,7 @@ const reducerFn = (state, action) => {
 
 const ExtendedModal = () => {
 
-  const { isAddExpenseModalVisible, setIsAddExpenseModalVisible, setExpenses } =
+  const { isAddExpenseModalVisible, setIsAddExpenseModalVisible, setExpenses, expense, updateExpense, setExpense } =
     useContext(ExpenseContext);
   const [date, setDate] = useState(new Date());
 
@@ -55,12 +60,33 @@ const ExtendedModal = () => {
   const [state, dispatch] = useReducer(reducerFn, initialState);
 
   useEffect(() => {
-    dispatch({
-      type: "SET_FIELD_VALUE",
-      field: "date",
-      value: formatDate(new Date()),
-    });
-  }, [isAddExpenseModalVisible]);
+    if(Object.keys(expense).length !== 0) {
+      const expenseDate = moment(expense.date, 'MMM D, YYYY').toDate();
+      setDate(expenseDate);
+      dispatch({
+        type: "SET_ALL_VALUES",
+        payload: {
+          title: expense.title,
+          price: expense.price,
+          date: expense.date,
+          comments: expense.comments
+        }
+      });
+    } 
+    else {
+      setDate(new Date());
+      dispatch({
+        type: "SET_ALL_VALUES",
+        payload: {
+          title: '',
+          price:'',
+          date: formatDate(new Date()),
+          comments: ''
+        }
+      });
+    }
+
+  }, [isAddExpenseModalVisible, expense]);
 
   const handleDatePickerChange = (event, selectedDate) => {
     const currentDate = selectedDate;
@@ -112,8 +138,17 @@ const ExtendedModal = () => {
 
   const handleSubmit = () => {
     const errors = handleValidateForm();
-    if (Object.keys(errors).length === 0) {
-      setDate(new Date());
+    if(Object.keys(expense).length !== 0 && Object.keys(errors).length === 0) {
+      dispatch({
+        type: "SET_FIELD_VALUE",
+        field: "date",
+        value: formatDate(date),
+      });
+      dispatch({ type: "CLEAR_FORM" });
+      setIsAddExpenseModalVisible(false);
+      update(ref(database, 'expenses/' + expense.id), {...state, id: expense.id, date: formatDate(date)});
+      updateExpense({...state, id: expense.id, date: formatDate(date)});
+    }else if (Object.keys(expense).length === 0  && Object.keys(errors).length === 0) {
       dispatch({ type: "CLEAR_FORM" });
       setIsAddExpenseModalVisible(false);
       const id = Date.now().toString(36);
@@ -130,6 +165,7 @@ const ExtendedModal = () => {
       animationType={"side"}
       transparent={true}
       onRequestClose={() => {
+        setExpenses({});
         setIsAddExpenseModalVisible(false);
       }}
     >
@@ -209,7 +245,7 @@ const ExtendedModal = () => {
               </Button>
             </SafeAreaView>
             <SafeAreaView style={styles.buttonContainer}>
-              <Button onPress={handleSubmit}>Add Expense</Button>
+              <Button onPress={handleSubmit}>{Object.keys(expense).length !== 0 ? 'Update Expense' : 'Add Expense'}</Button>
             </SafeAreaView>
           </SafeAreaView>
         </ScrollView>

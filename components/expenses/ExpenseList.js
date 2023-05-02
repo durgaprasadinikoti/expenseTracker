@@ -4,7 +4,6 @@ import DetailExpenseCard from "./DetailExpenseCard";
 import { Octicons } from '@expo/vector-icons'; 
 
 const ExpenseList = ({ title, data }) => {
-  console.log(data);
   const TotalPrice = data.reduce(
     (acc, item) => acc + Number(item.price),
     0

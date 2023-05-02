@@ -5,7 +5,7 @@ const Layout = ({ children }) => {
   return (
     <SafeAreaView style={styles.container}>
       {children}
-      <ExtendedModal isModalvisible={true} hideModal={() => {}} />
+      <ExtendedModal />
     </SafeAreaView>
   );
 };

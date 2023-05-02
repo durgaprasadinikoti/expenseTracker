@@ -13,7 +13,9 @@ const RecentExpenses = () => {
     const originalDate = moment(item.date.toString(), 'MMMM DD, YYYY');
     const formattedDate = originalDate.format('YYYY-MM-DD');
     return currentDate.toString() === formattedDate.toString();
-  } )
+  });
+
+  
   return (
     <Layout>
         <ExpenseList title="Today" data={filteredData} />

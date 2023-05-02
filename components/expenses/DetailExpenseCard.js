@@ -15,7 +15,7 @@ import { ref, remove } from "firebase/database";
 
 const DetailExpenseCard = ({ item }) => {
   const [isPressed, setIsPressed] = useState(false);
-  const { deleteExpense } = useContext(ExpenseContext);
+  const { deleteExpense, setIsAddExpenseModalVisible, setExpense } = useContext(ExpenseContext);
   let actionSheet = useRef();
   let optionArray = ["Edit", "Delete", "Cancel"];
 
@@ -53,7 +53,8 @@ const DetailExpenseCard = ({ item }) => {
                 { cancelable: false }
               );
         } else if(optionArray[index] === 'Edit') {
-            alert(`I am edit - ${item.id}`);
+          setExpense(item);
+          setIsAddExpenseModalVisible(true);
         }
   }
 

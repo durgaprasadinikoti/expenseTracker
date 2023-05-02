@@ -5,7 +5,10 @@ const ExpenseContext = createContext({
     setIsAddExpenseModalVisible: flag => {},
     expenses: [],
     setExpenses: expense => {},
-    deleteExpense: id => {}
+    deleteExpense: id => {},
+    expense: {},
+    setExpense: expense => {},
+    updateExpense: expense => {}
 })
 
 export default ExpenseContext;
