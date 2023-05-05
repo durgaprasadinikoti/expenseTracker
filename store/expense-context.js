@@ -8,7 +8,9 @@ const ExpenseContext = createContext({
     deleteExpense: id => {},
     expense: {},
     setExpense: expense => {},
-    updateExpense: expense => {}
+    updateExpense: expense => {},
+    mainScreen: false,
+    setMainScreen: screen => {}
 })
 
 export default ExpenseContext;

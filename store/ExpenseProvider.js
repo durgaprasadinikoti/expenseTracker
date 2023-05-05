@@ -5,6 +5,7 @@ const ExpenseProvider = ({children}) => {
     const [isAddExpenseModalVisible, setIsAddExpenseModalShow] = useState(false);
     const [expenses, setExpensesInst] = useState([]);
     const [expense, setExpenseInst] = useState({});
+    const [mainScreen, setMainScreenInst] = useState(false);
 
     const setIsAddExpenseModalVisible = (flag) => {
         setIsAddExpenseModalShow(flag);
@@ -22,6 +23,10 @@ const ExpenseProvider = ({children}) => {
         console.log(expense);
         setExpenseInst(expense);
     }
+
+    const setMainScreen = (screen) => {
+        setMainScreenInst(screen);
+    }   
     const value = {
         isAddExpenseModalVisible, 
         setIsAddExpenseModalVisible,
@@ -30,7 +35,9 @@ const ExpenseProvider = ({children}) => {
         deleteExpense,
         expense,
         setExpense,
-        updateExpense
+        updateExpense,
+        mainScreen,
+        setMainScreen
     }
 
     return(
