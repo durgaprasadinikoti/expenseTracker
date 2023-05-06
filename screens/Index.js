@@ -8,7 +8,7 @@ import {
 import { LinearGradient } from "expo-linear-gradient";
 import Button from "../components/ui/Button";
 import { FontAwesome } from "@expo/vector-icons";
-import { useState, useContext } from "react";
+import { useState, useContext, useRef } from "react";
 import ExpenseContext from "../store/expense-context";
 
 const IndexScreen = () => {
@@ -17,6 +17,12 @@ const IndexScreen = () => {
   const [passcode2, setPasscode2] = useState('');
   const [passcode3, setPasscode3] = useState('');
   const [passcode4, setPasscode4] = useState('');
+
+  const passcode1Element = useRef();
+  const passcode2Element = useRef();
+  const passcode3Element = useRef();
+  const passcode4Element = useRef();
+
 
   const { setMainScreen } = useContext(ExpenseContext);
 
@@ -32,12 +38,15 @@ const IndexScreen = () => {
 
   const handleChangeTextForPasscode1 = (newText) => {
     setPasscode1(newText);
+    passcode2Element.current.focus();
   };
   const handleChangeTextForPasscode2 = (newText) => {
     setPasscode2(newText);
+    passcode3Element.current.focus();
   };
   const handleChangeTextForPasscode3 = (newText) => {
     setPasscode3(newText);
+    passcode4Element.current.focus();
   };
   const handleChangeTextForPasscode4 = (newText) => {
     setPasscode4(newText);
@@ -79,6 +88,7 @@ const IndexScreen = () => {
               maxLength={1}
               keyboardType="number-pad"
               secureTextEntry
+              ref={passcode1Element}
             />
             <TextInput
               style={styles.passcodeInput}
@@ -87,6 +97,7 @@ const IndexScreen = () => {
               maxLength={1}
               keyboardType="number-pad"
               secureTextEntry
+              ref={passcode2Element}
             />
             <TextInput
               style={styles.passcodeInput}
@@ -95,6 +106,7 @@ const IndexScreen = () => {
               maxLength={1}
               keyboardType="number-pad"
               secureTextEntry
+              ref={passcode3Element}
             />
             <TextInput
               style={styles.passcodeInput}
@@ -103,6 +115,7 @@ const IndexScreen = () => {
               maxLength={1}
               keyboardType="number-pad"
               secureTextEntry
+              ref={passcode4Element}
             />
           </SafeAreaView>
 
