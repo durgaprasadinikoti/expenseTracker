@@ -97,10 +97,6 @@ const DetailExpenseCard = ({ item }) => {
                   </Text>
                 </SafeAreaView>
               </SafeAreaView>
-              {/* <SafeAreaView style={styles.rightEndContainer}>
-                        <MaterialIcons name="edit" size={24} color="#29BB0C" />
-                        <MaterialIcons name="delete" size={24} color="#FF0000" onPress={deleteExpense.bind(this, item.id)} />
-                    </SafeAreaView> */}
             </SafeAreaView>
           </Card>
         </SafeAreaView>

@@ -1,6 +1,5 @@
 import { SafeAreaView , StyleSheet, Text } from 'react-native';
 import Card from '../ui/Card';
-import { FontAwesome } from '@expo/vector-icons';
 
 const TotalCard = ({title, price}) => {
     const formatter = new Intl.NumberFormat('en-US', {

@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "expenseTracker",
+    "name": "Expenses",
     "slug": "expenseTracker",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -15,16 +15,25 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "buildNumber": "1.0.0",
+      "supportsTablet": true,
+      "bundleIdentifier": "com.reduxranga.expenseTracker"
     },
     "android": {
+      "versionCode": 1,
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/splash.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.reduxranga.expenseTracker"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "9b1e93df-09eb-4e4a-9990-a934821ccbc4"
+      }
     }
   }
 }

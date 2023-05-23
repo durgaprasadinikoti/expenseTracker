@@ -5,11 +5,13 @@ import {
   MaterialIcons,
   Feather,
   MaterialCommunityIcons,
+  Entypo
 } from "@expo/vector-icons";
 import RecentExpenses from "../screens/RecentExpenses";
 import Settings from "../screens/Settings";
 import ExpenseContext from "../store/expense-context";
 import { useContext } from "react";
+import OverView from "../screens/OverView";
 
 const Tab = createBottomTabNavigator();
 
@@ -43,6 +45,16 @@ export default function Navigation() {
           tabBarActiveTintColor: "white",
         }}
       >
+        <Tab.Screen
+          name="Overview"
+          component={OverView}
+          options={{
+            title: "Overview",
+            tabBarIcon: ({ color, size }) => (
+              <Entypo name="home" size={size} color={color} />
+            ),
+          }}
+        />
         <Tab.Screen
           name="RecentExpenses"
           component={RecentExpenses}
