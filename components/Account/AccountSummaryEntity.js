@@ -1,5 +1,6 @@
 import { SafeAreaView, StyleSheet, Text } from "react-native";
 import Card from "../ui/Card";
+import DateCard from "../ui/DateCard";
 
 const AccountSummaryEnity = ({ accountInfo }) => {
   const { Date, totalAmount, totalSpend, delta } = accountInfo;
@@ -17,7 +18,7 @@ const AccountSummaryEnity = ({ accountInfo }) => {
   return (
     <SafeAreaView>
       <SafeAreaView style={[styles.container, styles.accountSummaryContainer]}>
-        <Text style={styles.accountSummary}>{Date} Account Summary</Text>
+        <DateCard />
       </SafeAreaView>
       <Card
         style={{ borderColor: COLORS.profit, backgroundColor: COLORS.profit }}
@@ -69,6 +70,8 @@ const styles = StyleSheet.create({
    accountSummaryContainer: {
         justifyContent: 'center',
         alignItems: 'center',
+        marginVertical: 10,
+        marginHorizontal: 150
    }, 
     accountSummary: {
         fontWeight: 'bold',
