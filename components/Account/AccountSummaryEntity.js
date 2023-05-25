@@ -1,6 +1,7 @@
 import { SafeAreaView, StyleSheet, Text } from "react-native";
 import Card from "../ui/Card";
 import DateCard from "../ui/DateCard";
+import Filter from "../ui/Filter";
 
 const AccountSummaryEnity = ({ accountInfo }) => {
   const { Date, totalAmount, totalSpend, delta } = accountInfo;
@@ -11,17 +12,22 @@ const AccountSummaryEnity = ({ accountInfo }) => {
   });
 
   const COLORS = {
-    loss: "#A40000",
+    loss: "#F55640",
     profit: "#02494D",
+    black: 'black',
+    other: '#3F3F3F'
   };
 
   return (
     <SafeAreaView>
       <SafeAreaView style={[styles.container, styles.accountSummaryContainer]}>
+        <Filter />
+      </SafeAreaView>
+      <SafeAreaView style={[styles.container, styles.accountSummaryContainer]}>
         <DateCard />
       </SafeAreaView>
       <Card
-        style={{ borderColor: COLORS.profit, backgroundColor: COLORS.profit }}
+        style={{ borderColor: COLORS.other, backgroundColor: COLORS.other }}
       >
         <SafeAreaView>
           <SafeAreaView style={styles.container}>
@@ -57,7 +63,7 @@ const AccountSummaryEnity = ({ accountInfo }) => {
               <Text style={styles.text}>Profit / Loss</Text>
             </SafeAreaView>
             <SafeAreaView style={styles.priceTextContainer}>
-              <Text style={styles.priceText}> {formatter.format(delta)}</Text>
+              <Text style={[styles.priceText, {color: 'red'}]}> - {formatter.format(delta)}</Text>
             </SafeAreaView>
           </SafeAreaView>
         </SafeAreaView>
