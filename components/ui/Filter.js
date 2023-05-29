@@ -2,7 +2,7 @@ import { SafeAreaView, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { useState } from 'react';
 import RNPickerSelect from 'react-native-picker-select';
 
-const Filter = () => {
+const Filter = ({onFilter}) => {
  const [selectedMonthValue, setSelectedMonthValue] = useState('');
  const [selectedYearValue, setSelectedYearValue] = useState('');
   const months = [
@@ -52,7 +52,7 @@ const Filter = () => {
             />
       </SafeAreaView>
       <SafeAreaView>
-            <TouchableOpacity style={styles.buttonContainer}> 
+            <TouchableOpacity style={styles.buttonContainer} onPress={onFilter.bind(this, {month: selectedMonthValue, year: selectedYearValue })}> 
                 <Text style={styles.text}>Get Details</Text>
             </TouchableOpacity>
       </SafeAreaView>

@@ -1,12 +1,12 @@
 import { SafeAreaView, Text, StyleSheet } from 'react-native';
 
-const DateCard = () => {
+const DateCard = ({month, year}) => {
     return <SafeAreaView style={styles.container}>
             <SafeAreaView style={styles.innerContainer}>
-                <Text style={styles.innterTopText}>May</Text>
+                <Text style={styles.innterTopText}>{month}</Text>
             </SafeAreaView>
             <SafeAreaView style={styles.secondInnerContainer}>
-                <Text style={styles.secondText}>2023</Text>
+                <Text style={styles.secondText}>{year}</Text>
             </SafeAreaView>
     </SafeAreaView>
 }
