@@ -3,40 +3,43 @@ import Layout from "./Layout";
 import Card from "../components/ui/Card";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import ExpenseContext from "../store/expense-context";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 
 const Settings = () => {
-  const { setMainScreen } = useContext(ExpenseContext);
-  return (
-    <Layout>
-      <Card>
-        <SafeAreaView style={styles.container}>
-          <SafeAreaView style={styles.innerCOntainer}>
-            <SafeAreaView
-              style={{ justifyContent: "center", alignItems: "center" }}
-            >
-              <MaterialCommunityIcons name="logout" size={24} color="white" />
-            </SafeAreaView>
-            <Text style={styles.text} onPress={() => setMainScreen(false)}>Logout </Text>
-          </SafeAreaView>
-        </SafeAreaView>
-      </Card>
+  const { setMainScreen, setIsMonthlyExpenseModalVisible } = useContext(ExpenseContext);
 
-      <Card>
-        <SafeAreaView style={styles.container}>
-          <SafeAreaView style={styles.innerCOntainer}>
-            <SafeAreaView
-              style={{ justifyContent: "center", alignItems: "center" }}
-            >
-              <MaterialCommunityIcons name="cash" size={24} color="white" />
+  return (
+      <Layout>
+        <Card>
+          <SafeAreaView style={styles.container}>
+            <SafeAreaView style={styles.innerCOntainer}>
+              <SafeAreaView
+                style={{ justifyContent: "center", alignItems: "center" }}
+              >
+                <MaterialCommunityIcons name="logout" size={24} color="white" />
+              </SafeAreaView>
+              <Text style={styles.text} onPress={() => setMainScreen(false)}>
+                Logout{" "}
+              </Text>
             </SafeAreaView>
-            <Text style={styles.text} onPress={() => setMainScreen(false)}>
-              Add Monthly Amount
-            </Text>
           </SafeAreaView>
-        </SafeAreaView>
-      </Card>
-    </Layout>
+        </Card>
+
+        <Card>
+          <SafeAreaView style={styles.container}>
+            <SafeAreaView style={styles.innerCOntainer}>
+              <SafeAreaView
+                style={{ justifyContent: "center", alignItems: "center" }}
+              >
+                <MaterialCommunityIcons name="cash" size={24} color="white" />
+              </SafeAreaView>
+              <Text style={styles.text} onPress={() => setIsMonthlyExpenseModalVisible(true)}>
+                Add Monthly Credit
+              </Text>
+            </SafeAreaView>
+          </SafeAreaView>
+        </Card>
+      </Layout>
   );
 };
 

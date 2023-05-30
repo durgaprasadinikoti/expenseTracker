@@ -10,7 +10,11 @@ const ExpenseContext = createContext({
     setExpense: expense => {},
     updateExpense: expense => {},
     mainScreen: false,
-    setMainScreen: screen => {}
+    setMainScreen: screen => {},
+    loader: true,
+    setLoader: flag => {},
+    isMonthlyExpenseModalVisible: false,
+    setIsMonthlyExpenseModalVisible: flag => {},
 })
 
 export default ExpenseContext;

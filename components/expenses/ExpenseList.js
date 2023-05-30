@@ -2,18 +2,22 @@ import { FlatList, StyleSheet, Text, SafeAreaView } from "react-native";
 import TotalExpernsesCard from "./TotalExpensesCard";
 import DetailExpenseCard from "./DetailExpenseCard";
 import { Octicons } from '@expo/vector-icons'; 
+import { useContext } from 'react';
+import ExpenseContext from "../../store/expense-context";
 
 const ExpenseList = ({ title, data }) => {
+  const { loader } = useContext(ExpenseContext);
   const TotalPrice = data.reduce(
     (acc, item) => acc + Number(item.price),
     0
   );
   return (
     <>
-      {TotalPrice !== 0 && (
+      {loader && <SafeAreaView style={styles.innerContainer}><Text style={styles.text}>Loading please wait...</Text></SafeAreaView>}
+      {TotalPrice !== 0 && !loader && (
         <TotalExpernsesCard title={title} price={TotalPrice} />
       )}
-      {TotalPrice === 0 && (
+      {TotalPrice === 0 && !loader && (
         <SafeAreaView style={styles.noExpenseContainer}>
           <Text style={styles.text}>Start add your expenses  <Octicons name="smiley" size={24} color="#FF4900" /></Text>
         </SafeAreaView>
@@ -28,6 +32,11 @@ const ExpenseList = ({ title, data }) => {
 };
 
 const styles = StyleSheet.create({
+  innerContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
   noExpenseContainer: {
     flex: 1,
     justifyContent: "center",
