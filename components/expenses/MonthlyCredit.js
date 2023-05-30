@@ -6,14 +6,58 @@ import {
   TextInput,
   Platform,
   ScrollView,
+  Alert
 } from "react-native";
 import { useState, useContext } from "react";
 import Button from "../ui/Button";
 import ExpenseContext from "../../store/expense-context";
+import RNPickerSelect from "react-native-picker-select";
+import { useExpenses } from '../../hooks/useExpenses';
+
 const MonthlyCredit = () => {
   const { isMonthlyExpenseModalVisible, setIsMonthlyExpenseModalVisible } =
     useContext(ExpenseContext);
+  const { addMontlyCredit } = useExpenses();
   const [amount, setAmount] = useState();
+  const [month, setMonth] = useState();
+  const [year, setYear] = useState();
+
+  const months = [
+    { label: "January", value: "January" },
+    { label: "February", value: "February" },
+    { label: "March", value: "March" },
+    { label: "April", value: "April" },
+    { label: "May", value: "May" },
+    { label: "June", value: "June" },
+    { label: "July", value: "July" },
+    { label: "August", value: "August" },
+    { label: "September", value: "September" },
+    { label: "October", value: "October" },
+    { label: "November", value: "November" },
+    { label: "December", value: "December" },
+  ];
+
+  const placeholderStyle = {
+    color: "#514F4F", // Change the color to your desired placeholder color
+  };
+
+  const handleSubmit = () => {
+    if(amount && amount.trim().length !== 0 && month && month.trim().length !== 0 && year && year.trim().length !== 0) {
+       const reqBody = {amount, month, year};
+       console.log(reqBody);
+       addMontlyCredit(reqBody);
+       setIsMonthlyExpenseModalVisible(false);
+    } else {
+        Alert.alert(
+            'Error',
+            'Please enter the required values',
+            [
+              { text: 'OK', onPress: () => console.log('OK Pressed') },
+            ],
+            { cancelable: false }
+          );
+    }
+  }
 
   return (
     <Modal
@@ -27,6 +71,42 @@ const MonthlyCredit = () => {
           <Text style={[styles.text, { margin: 30, textAlign: "center" }]}>
             Add Monthly Credit
           </Text>
+          <SafeAreaView style={styles.dropdown}>
+            <RNPickerSelect
+              style={{ placeholder: placeholderStyle }}
+              placeholder={{
+                label: "Select a month",
+                value: null,
+                color: "black",
+              }}
+              onValueChange={(itemValue) => setMonth(itemValue)}
+              items={months}
+              textInputProps={{ style: { color: "white" } }}
+            />
+          </SafeAreaView>
+
+          <SafeAreaView style={styles.dropdown}>
+            <RNPickerSelect
+              style={{ placeholder: placeholderStyle }}
+              placeholder={{
+                label: "Select a year",
+                value: null,
+                color: "black",
+              }}
+              onValueChange={(itemValue) => setYear(itemValue)}
+              items={[
+                { label: "2023", value: "2023" },
+                { label: "2024", value: "2024" },
+                { label: "2025", value: "2025" },
+                { label: "2026", value: "2026" },
+                { label: "2027", value: "2027" },
+                { label: "2028", value: "2028" },
+                { label: "2029", value: "2029" },
+                { label: "2030", value: "2030" },
+              ]}
+              textInputProps={{ style: { color: "white" } }}
+            />
+          </SafeAreaView>
           <SafeAreaView>
             <TextInput
               placeholder="Enter Amount"
@@ -34,11 +114,8 @@ const MonthlyCredit = () => {
               style={styles.textInput}
               keyboardType={"numeric"}
               value={amount}
-              onChangeText={() => {}}
+              onChangeText={(value) => setAmount(value)}
             />
-            {/* {state.errors.price && (
-          <Text style={styles.errorText}>{state.errors.price}</Text>
-        )} */}
           </SafeAreaView>
 
           <SafeAreaView style={styles.buttonsContainer}>
@@ -52,10 +129,8 @@ const MonthlyCredit = () => {
               </Button>
             </SafeAreaView>
             <SafeAreaView style={styles.buttonContainer}>
-              <Button onPress={() => {}}>
-                {Object.keys({}).length !== 0
-                  ? "Update Amount"
-                  : "Add Amount"}
+              <Button onPress={handleSubmit}>
+                {Object.keys({}).length !== 0 ? "Update" : "Save"}
               </Button>
             </SafeAreaView>
           </SafeAreaView>
@@ -128,6 +203,18 @@ const styles = StyleSheet.create({
   errorText: {
     color: "#DE0000",
     paddingHorizontal: 12,
+  },
+  dropdown: {
+    borderWidth: 1,
+    borderColor: "#B7B7B7",
+    // borderRadius: 8,
+    height: 40,
+    width: "89%",
+    justifyContent: "center",
+    alignItems: "center",
+    paddingHorizontal: 20,
+    margin: 10,
+    color: "white",
   },
 });
 
