@@ -12,12 +12,12 @@ import { useState, useContext } from "react";
 import Button from "../ui/Button";
 import ExpenseContext from "../../store/expense-context";
 import RNPickerSelect from "react-native-picker-select";
-import { useExpenses } from '../../hooks/useExpenses';
+import { useSavings } from '../../hooks/useSavings';
 
 const MonthlyCredit = () => {
   const { isMonthlyExpenseModalVisible, setIsMonthlyExpenseModalVisible } =
     useContext(ExpenseContext);
-  const { addMontlyCredit } = useExpenses();
+  const { addMontlyCredit } = useSavings();
   const [amount, setAmount] = useState();
   const [month, setMonth] = useState();
   const [year, setYear] = useState();
