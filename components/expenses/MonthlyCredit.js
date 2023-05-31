@@ -8,19 +8,32 @@ import {
   ScrollView,
   Alert
 } from "react-native";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import Button from "../ui/Button";
 import ExpenseContext from "../../store/expense-context";
 import RNPickerSelect from "react-native-picker-select";
 import { useSavings } from '../../hooks/useSavings';
 
 const MonthlyCredit = () => {
-  const { isMonthlyExpenseModalVisible, setIsMonthlyExpenseModalVisible } =
+  const { isMonthlyExpenseModalVisible, setIsMonthlyExpenseModalVisible, mothlyCreditInst, updateMonthlyCreditInst } =
     useContext(ExpenseContext);
-  const { addMontlyCredit } = useSavings();
+  const { addMontlyCredit, updateMontlyCredit } = useSavings();
   const [amount, setAmount] = useState();
   const [month, setMonth] = useState();
   const [year, setYear] = useState();
+
+  useEffect(() => {
+    let MonthlyInstObj = Object.keys(mothlyCreditInst).length;
+    if(MonthlyInstObj > 0) {
+      setAmount(mothlyCreditInst.amount);
+      setMonth(mothlyCreditInst.month);
+      setYear(mothlyCreditInst.year);
+    } else {
+      setAmount('');
+      setMonth('');
+      setYear('');
+    }
+  }, [mothlyCreditInst]);
 
   const months = [
     { label: "January", value: "January" },
@@ -43,9 +56,13 @@ const MonthlyCredit = () => {
 
   const handleSubmit = () => {
     if(amount && amount.trim().length !== 0 && month && month.trim().length !== 0 && year && year.trim().length !== 0) {
-       const reqBody = {amount, month, year};
-       console.log(reqBody);
-       addMontlyCredit(reqBody);
+       const reqBody = {amount, month, year, id: Math.random().toString(36).substr(2, 9)};
+       if(Object.keys(mothlyCreditInst).length > 0) {
+        updateMontlyCredit({amount, month, year,id: mothlyCreditInst.id});
+        updateMonthlyCreditInst({amount, month, year, id: mothlyCreditInst.id})
+       } else {
+        addMontlyCredit(reqBody);
+       }
        setIsMonthlyExpenseModalVisible(false);
     } else {
         Alert.alert(
@@ -69,7 +86,7 @@ const MonthlyCredit = () => {
       <SafeAreaView style={styles.container}>
         <ScrollView>
           <Text style={[styles.text, { margin: 30, textAlign: "center" }]}>
-            Add Monthly Credit
+            {Object.keys(mothlyCreditInst).length > 0 ? 'Update Monthly Credit' : 'Add Monthly Credit' }
           </Text>
           <SafeAreaView style={styles.dropdown}>
             <RNPickerSelect
@@ -82,6 +99,7 @@ const MonthlyCredit = () => {
               onValueChange={(itemValue) => setMonth(itemValue)}
               items={months}
               textInputProps={{ style: { color: "white" } }}
+              value={month}
             />
           </SafeAreaView>
 
@@ -105,6 +123,7 @@ const MonthlyCredit = () => {
                 { label: "2030", value: "2030" },
               ]}
               textInputProps={{ style: { color: "white" } }}
+              value={year}
             />
           </SafeAreaView>
           <SafeAreaView>
@@ -130,7 +149,7 @@ const MonthlyCredit = () => {
             </SafeAreaView>
             <SafeAreaView style={styles.buttonContainer}>
               <Button onPress={handleSubmit}>
-                {Object.keys({}).length !== 0 ? "Update" : "Save"}
+                {Object.keys(mothlyCreditInst).length !== 0 ? "Update" : "Save"}
               </Button>
             </SafeAreaView>
           </SafeAreaView>

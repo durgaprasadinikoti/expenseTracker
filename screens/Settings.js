@@ -6,40 +6,47 @@ import ExpenseContext from "../store/expense-context";
 import { useContext, useState } from "react";
 
 const Settings = () => {
-  const { setMainScreen, setIsMonthlyExpenseModalVisible } = useContext(ExpenseContext);
+  const { setMainScreen, setIsMonthlyExpenseModalVisible, setMonthlyCreditInst } =
+    useContext(ExpenseContext);
 
   return (
-      <Layout>
-        <Card>
-          <SafeAreaView style={styles.container}>
-            <SafeAreaView style={styles.innerCOntainer}>
-              <SafeAreaView
-                style={{ justifyContent: "center", alignItems: "center" }}
-              >
-                <MaterialCommunityIcons name="logout" size={24} color="white" />
-              </SafeAreaView>
-              <Text style={styles.text} onPress={() => setMainScreen(false)}>
-                Logout{" "}
-              </Text>
+    <Layout>
+      <Card>
+        <SafeAreaView style={styles.container}>
+          <SafeAreaView style={styles.innerCOntainer}>
+            <SafeAreaView
+              style={{ justifyContent: "center", alignItems: "center" }}
+            >
+              <MaterialCommunityIcons name="logout" size={24} color="white" />
             </SafeAreaView>
+            <Text style={styles.text} onPress={() => setMainScreen(false)}>
+              Logout{" "}
+            </Text>
           </SafeAreaView>
-        </Card>
+        </SafeAreaView>
+      </Card>
 
-        <Card>
-          <SafeAreaView style={styles.container}>
-            <SafeAreaView style={styles.innerCOntainer}>
-              <SafeAreaView
-                style={{ justifyContent: "center", alignItems: "center" }}
-              >
-                <MaterialCommunityIcons name="cash" size={24} color="white" />
-              </SafeAreaView>
-              <Text style={styles.text} onPress={() => setIsMonthlyExpenseModalVisible(true)}>
-                Add Monthly Credit
-              </Text>
+      <Card>
+        <SafeAreaView style={styles.container}>
+          <SafeAreaView style={styles.innerCOntainer}>
+            <SafeAreaView
+              style={{ justifyContent: "center", alignItems: "center" }}
+            >
+              <MaterialCommunityIcons name="cash" size={24} color="white" />
             </SafeAreaView>
+            <Text
+              style={styles.text}
+              onPress={() => {
+                setMonthlyCreditInst({});
+                setIsMonthlyExpenseModalVisible(true);
+              }}
+            >
+              Add Monthly Credit
+            </Text>
           </SafeAreaView>
-        </Card>
-      </Layout>
+        </SafeAreaView>
+      </Card>
+    </Layout>
   );
 };
 

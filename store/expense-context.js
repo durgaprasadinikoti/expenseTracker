@@ -15,6 +15,12 @@ const ExpenseContext = createContext({
     setLoader: flag => {},
     isMonthlyExpenseModalVisible: false,
     setIsMonthlyExpenseModalVisible: flag => {},
+    monthlyCredits: [],
+    setMontlyCredits: credits => {},
+    deleteMonthlyCredit: id => {},
+    updateMonthlyCreditInst: creditInfo => {},
+    mothlyCreditInst: {},
+    setMonthlyCreditInst: info => {}
 })
 
 export default ExpenseContext;

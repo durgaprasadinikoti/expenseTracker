@@ -5,13 +5,14 @@ import {
   MaterialIcons,
   Feather,
   MaterialCommunityIcons,
-  Entypo
+  Entypo,
 } from "@expo/vector-icons";
 import RecentExpenses from "../screens/RecentExpenses";
 import Settings from "../screens/Settings";
 import ExpenseContext from "../store/expense-context";
 import { useContext } from "react";
 import OverView from "../screens/OverView";
+import MonthlyExpenses from "../screens/MonthlyExpenses";
 
 const Tab = createBottomTabNavigator();
 
@@ -78,6 +79,21 @@ export default function Navigation() {
             tabBarIcon: ({ color, size }) => (
               <MaterialCommunityIcons
                 name="finance"
+                size={size}
+                color={color}
+              />
+            ),
+          }}
+        />
+
+        <Tab.Screen
+          name="MonthlyCredits"
+          component={MonthlyExpenses}
+          options={{
+            title: "Monthly Credits",
+            tabBarIcon: ({ color, size }) => (
+              <MaterialCommunityIcons
+                name="cash"
                 size={size}
                 color={color}
               />

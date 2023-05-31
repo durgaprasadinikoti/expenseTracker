@@ -8,6 +8,8 @@ const ExpenseProvider = ({children}) => {
     const [mainScreen, setMainScreenInst] = useState(false);
     const [loader, setLoader] = useState(true);
     const [isMonthlyExpenseModalVisible, setIsMonthlyExpenseModalVisible] = useState(false);
+    const [monthlyCredits, setMontlyCredits] = useState([]);
+    const [mothlyCreditInst, setMonthlyCreditInst] = useState({});
 
     const setIsAddExpenseModalVisible = (flag) => {
         setIsAddExpenseModalShow(flag);
@@ -22,10 +24,17 @@ const ExpenseProvider = ({children}) => {
         return expense;
     } ));
     const setExpense = expense => {
-        console.log(expense);
         setExpenseInst(expense);
     }
 
+
+    const deleteMonthlyCredit = id => setMontlyCredits( prevCredits => prevCredits.filter( credit => credit.id !== id ) )
+    const updateMonthlyCreditInst = creditInfo => setMontlyCredits( (previous) => previous.map( item => {
+        if(item.id === creditInfo.id) {
+            return { ...creditInfo }
+        }
+        return item;
+    } ));
     const setMainScreen = (screen) => {
         setMainScreenInst(screen);
     }   
@@ -43,7 +52,13 @@ const ExpenseProvider = ({children}) => {
         loader,
         setLoader,
         isMonthlyExpenseModalVisible,
-        setIsMonthlyExpenseModalVisible
+        setIsMonthlyExpenseModalVisible,
+        monthlyCredits,
+        setMontlyCredits,
+        deleteMonthlyCredit,
+        updateMonthlyCreditInst,
+        mothlyCreditInst,
+        setMonthlyCreditInst
     }
 
     return(
