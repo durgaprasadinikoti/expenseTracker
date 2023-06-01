@@ -2,18 +2,23 @@ import { SafeAreaView, StyleSheet, Text, ActivityIndicator, Alert } from "react-
 import Card from "../ui/Card";
 import DateCard from "../ui/DateCard";
 import Filter from "../ui/Filter";
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import ExpenseContext from "../../store/expense-context";
+import { useSavings } from '../../hooks/useSavings';
 
 const AccountSummaryEnity = ({ accountInfo }) => {
-  const { Date, totalAmount, totalSpend, delta } = accountInfo;
-  const { expenses } = useContext(ExpenseContext);
+  const { expenses, monthlyCredits } = useContext(ExpenseContext);
   const [filterInputObj, setFilterInputObj] = useState({month: '', year: ''})
   const [ loader, setLoader ] = useState(false);
   const [ dataRendered, setIsDataRendered ] = useState(false);
-  const [totalAmountValue, setTotalAmountValue] = useState(280000);
-  const [totalAmountSepent, setTotalAmountSpent] = useState(280000);
+  const [totalAmountValue, setTotalAmountValue] = useState();
+  const [totalAmountSepent, setTotalAmountSpent] = useState();
   const [totalBalance, setTotalBalance] = useState(0);
+  const { fetchMonthlyCredit } = useSavings();
+
+  useEffect( () => {
+    fetchMonthlyCredit();
+  }, [])
 
   const formatter = new Intl.NumberFormat("en-US", {
     style: "currency",
@@ -38,8 +43,10 @@ const AccountSummaryEnity = ({ accountInfo }) => {
         (acc, item) => acc + Number(item.price),
         0
       );
+      const TotalAmountObj = monthlyCredits.find( item => item.month === filterInput.month && filterInput.year === item.year)
+      setTotalAmountValue(+TotalAmountObj?.amount || 0)
       setTotalAmountSpent(TotalPrice);
-      setTotalBalance(totalAmountValue - TotalPrice);
+      setTotalBalance((+TotalAmountObj?.amount || 0) - TotalPrice);
       setLoader(false);
       setIsDataRendered(true);
     } else {
