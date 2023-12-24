@@ -3,6 +3,7 @@ import AccountSummaryEnity from './AccountSummaryEntity';
 
 const AccoutSummary = () => {
     return (
+        // Account Summary component inisiated here
         <SafeAreaView style={styles.container}>
             <AccountSummaryEnity />
         </SafeAreaView>
